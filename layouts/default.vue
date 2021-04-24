@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <navbar />
-    <Nuxt />
+  <div class="bg-gray-100">
+    <div class="bg-white">
+      <navbar class="max-w-screen-lg mx-auto" />
+    </div>
+    <main class="max-w-screen-lg mx-auto min-h-[100vh]">
+      <Nuxt />
+    </main>
   </div>
 </template>
 
@@ -10,22 +14,15 @@ import Navbar from '@/components/common/navbar.vue'
 
 export default {
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 }
 </script>
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -41,6 +38,4 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
-
 </style>

@@ -4,7 +4,14 @@ export default {
 </script>
 
 <template>
-  <nav>
-    Hello
+  <nav class="p-4 flex items-center justify-between">
+    <n-link to="/">
+      <img src="~/assets/img/carreers.svg" alt="carreers" width="150" class="w-logo" />
+    </n-link>
+    <el-button
+      icon="el-icon-upload2"
+      @click="submitCarreerPage"
+    > Submit a carreer page
+    </el-button>
   </nav>
 </template>
