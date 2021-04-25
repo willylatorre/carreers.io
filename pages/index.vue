@@ -1,19 +1,32 @@
 <template>
-  <div class="p-2 md:p-4">
-    <searchbar />
+  <div class="home">
+    <!-- <searchbar /> -->
+    <sidebar />
+    <cp-container />
   </div>
 </template>
 
 <script>
 import Searchbar from '../components/common/searchbar.vue'
+import Sidebar from '../components/common/sidebar.vue'
+import CpContainer from '../components/cp/CpContainer.vue'
 export default {
   components: {
-    Searchbar
+    Searchbar,
+    Sidebar,
+    CpContainer
   }
 }
 </script>
 
 <style>
+.home {
+ @apply p-4;
+ display: grid;
+ grid-template-columns: 240px 1fr;
+ gap: 24px;
+
+}
 
 .title {
   font-family:
