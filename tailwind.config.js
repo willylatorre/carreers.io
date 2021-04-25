@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        logo: '150px',
+        logo: '180px',
       },
       spacing: {
         
