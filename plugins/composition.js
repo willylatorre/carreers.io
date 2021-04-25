@@ -3,7 +3,6 @@ import { provideCareers } from './careers'
 
 export default () => {
   onGlobalSetup(() => {
-    console.log('HLOBOBOBOB');
     provideCareers()
   })
 }

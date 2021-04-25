@@ -6,24 +6,32 @@ import { useCareers } from '@/plugins/careers'
 export default defineComponent({
   components: { CpCard },
   setup() {
-    const { cps } = useCareers()
+    const { filteredCps, toggleCheck } = useCareers()
+
     return {
-      cps
+      toggleCheck,
+      filteredCps
     }
-  }
+  },
 })
 </script>
 
 <template>
   <div class="">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="font-medium text-xl">Showing <strong>43</strong> career pages</h2>
+      <h2 class="font-medium text-xl">
+        Showing <strong>{{filteredCps.length}}</strong> career pages
+      </h2>
       <span class="text-xs">Sort by <strong>newest</strong></span>
     </div>
 
-    <div class="grid grid-cols-fill gap-4" >
-      <cp-card :cp="cp" v-for="cp in cps" :key="cp.name" />
+    <div class="grid grid-cols-fill gap-4">
+      <cp-card
+        :cp="cp"
+        v-for="cp in filteredCps"
+        :key="cp._id"
+        @check="toggleCheck(cp)"
+      />
     </div>
-    
   </div>
 </template>

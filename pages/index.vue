@@ -1,7 +1,7 @@
 
 
 <script>
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import Searchbar from '../components/common/searchbar.vue'
 import Sidebar from '../components/common/sidebar.vue'
 import CpContainer from '../components/cp/CpContainer.vue'
@@ -15,7 +15,11 @@ export default defineComponent({
   },
   setup() {
     const { loadCps } = useCareers()
-    loadCps()
+    
+
+    onMounted(() => {
+      loadCps()
+    })
     
     return  {
       
