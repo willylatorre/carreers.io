@@ -8,14 +8,16 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        logo: '180px',
-        card: '180px'
+        logo: '150px',
+        card: '180px',
+        cplogo: '80px'
       },
       minWidth: {
         card: '180px'
       },
       height: {
-        card: '280px'
+        card: '280px',
+        cplogo: '80px'
       },
       colors: {
         border: 'rgba(0,0,0,0.1)'

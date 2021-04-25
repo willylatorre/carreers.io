@@ -1,5 +1,10 @@
 <script>
 export default {
+  methods: {
+    submitCarreerPage() {
+      console.log('submit')
+    }
+  }
 }
 </script>
 

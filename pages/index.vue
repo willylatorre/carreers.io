@@ -1,3 +1,30 @@
+
+
+<script>
+import { defineComponent } from '@nuxtjs/composition-api'
+import Searchbar from '../components/common/searchbar.vue'
+import Sidebar from '../components/common/sidebar.vue'
+import CpContainer from '../components/cp/CpContainer.vue'
+import { useCareers } from '@/plugins/careers'
+
+export default defineComponent({
+   components: {
+    Searchbar,
+    Sidebar,
+    CpContainer
+  },
+  setup() {
+    const { loadCps } = useCareers()
+    loadCps()
+    
+    return  {
+      
+    }
+  },
+})
+</script>
+
+
 <template>
   <div class="home">
     <!-- <searchbar /> -->
@@ -5,19 +32,6 @@
     <cp-container />
   </div>
 </template>
-
-<script>
-import Searchbar from '../components/common/searchbar.vue'
-import Sidebar from '../components/common/sidebar.vue'
-import CpContainer from '../components/cp/CpContainer.vue'
-export default {
-  components: {
-    Searchbar,
-    Sidebar,
-    CpContainer
-  }
-}
-</script>
 
 <style>
 .home {
@@ -28,33 +42,5 @@ export default {
 
 }
 
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
