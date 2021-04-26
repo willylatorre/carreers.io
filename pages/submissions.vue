@@ -8,6 +8,12 @@ export default defineComponent({
   components: {
     SubmissionsContainer,
   },
+  head: {
+    title: 'Submissions - Admin',
+    meta: [
+      { name: 'robots', content: 'none'}
+    ],
+  },
   setup() {
     const { loadSubmissions } = provideSubmissions()
 
