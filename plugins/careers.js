@@ -6,6 +6,7 @@ const CAREERS_KEY = Symbol.for('careers')
 
 const createCareersInstance = () => {
   const cps = ref([])
+  let checkedCps = {}
   const filters = reactive({
     checked: false,
   })
@@ -19,23 +20,23 @@ const createCareersInstance = () => {
     return pages
   })
 
-  const checkedStorage = (process.server
-    ? "{}"
-    : localStorage?.getItem('cps-checked')) || "{}"
-
-  const checkedCps = JSON.parse(checkedStorage)
-  
+  const loadLocalStoreData = () => {
+    let checkedStorage = localStorage?.getItem('cps-checked')
+    checkedCps = JSON.parse(checkedStorage || "{}")
+  }
 
   const loadCps = async () => {
     const data = await api.cps(filters)
-    console.log(checkedCps);
+    if (!process.server) {
+      loadLocalStoreData()
+    }
     cps.value = data.map(cp => ({ ...cp, checked: checkedCps[cp._id]}))
   }
 
   const toggleCheck = (cp) => {
     cp.checked = !cp.checked
     Vue.set(checkedCps, cp._id, cp.checked)
-    localStorage?.setItem('cps', JSON.stringify(checkedCps))
+    localStorage?.setItem('cps-checked', JSON.stringify(checkedCps))
   }
 
   return {
@@ -44,7 +45,8 @@ const createCareersInstance = () => {
     filters,
     checkedCps,
     toggleCheck,
-    filteredCps
+    filteredCps,
+    loadLocalStoreData
   }
 }
 

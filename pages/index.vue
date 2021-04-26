@@ -15,14 +15,12 @@ export default defineComponent({
   },
   setup() {
     const { loadCps } = useCareers()
-    
-
+  
     onMounted(() => {
       loadCps()
     })
     
     return  {
-      
     }
   },
 })
