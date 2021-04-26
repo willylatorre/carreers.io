@@ -17,14 +17,12 @@ export default defineComponent({
   },
   setup() {
     const { loadCps } = useCareers()
-    
 
     onMounted(() => {
       loadCps()
     })
 
-    return {
-    }
+    return {}
   },
 })
 </script>
@@ -45,7 +43,7 @@ export default defineComponent({
   @apply p-4;
   display: grid;
   grid-template-columns: 1fr;
-  
+
   @media (min-width: 727px) {
     grid-template-columns: 240px 1fr;
     gap: 24px;
