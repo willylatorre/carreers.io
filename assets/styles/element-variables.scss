@@ -5,3 +5,9 @@ $--color-primary: #f59e0b;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
+
+.el-loading-spinner {
+  svg {
+    margin: 0 auto;
+  }
+}

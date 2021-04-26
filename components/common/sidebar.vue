@@ -8,11 +8,13 @@ export default defineComponent({
     const url = ref('')
     const showFilters = ref(false)
     const { filters, showSubmitForm } = useCareers()
+        const isSmallScreen = useMediaQuery('(max-width: 727px)')
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
 
     return {
       url,
       showFilters,
+      isSmallScreen,
       isLargeScreen,
       showSubmitForm,
       filters,
@@ -25,7 +27,7 @@ export default defineComponent({
 
 <template>
   <div class="">
-    <div class="bg-yellow-50 rounded-xl p-4" v-if="isLargeScreen">
+    <div class="bg-yellow-50 rounded-xl p-4" v-show="isLargeScreen">
       <h2 class="font-medium mb-2">Submit a career page</h2>
       <p class="text-sm">
         Are you missing an specific career page? Feel free to submit it!
@@ -40,7 +42,7 @@ export default defineComponent({
       plain
       size="small"
       icon="el-icon-s-operation"
-      v-if="!isLargeScreen"
+      v-show="isSmallScreen"
       class="absolute right-4"
       @click="showFilters = true"
     >

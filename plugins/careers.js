@@ -1,4 +1,11 @@
-import { computed, inject, provide, reactive, ref, watch } from '@vue/composition-api'
+import {
+  computed,
+  inject,
+  provide,
+  reactive,
+  ref,
+  watch,
+} from '@vue/composition-api'
 import api from '@/api'
 import Vue from 'vue'
 import { Message } from 'element-ui'
@@ -15,26 +22,27 @@ export const Category = Object.freeze({
   proptech: 'Proptech',
   environment: 'Environment',
   iot: 'IoT',
-  blockchain: 'Blockchain'
+  blockchain: 'Blockchain',
 })
 
 const createCareersInstance = () => {
   const cps = ref([])
+  const loading = ref(false)
   const showSubmitForm = ref(false)
   let checkedCps = {}
   const filters = reactive({
     checked: false,
-    categories: []
+    categories: [],
   })
 
   const filteredCps = computed(() => {
     let pages = cps.value
     if (filters.checked) {
-      pages = pages.filter(cp => !cp.checked)
+      pages = pages.filter((cp) => !cp.checked)
     }
 
     if (filters.categories.length > 0) {
-      pages = pages.filter(cp => filters.categories.includes(cp.category))
+      pages = pages.filter((cp) => filters.categories.includes(cp.category))
     }
 
     return pages
@@ -42,33 +50,40 @@ const createCareersInstance = () => {
 
   const loadLocalStoreData = () => {
     let checkedStorage = localStorage?.getItem('cps-checked')
-    checkedCps = JSON.parse(checkedStorage || "{}")
+    checkedCps = JSON.parse(checkedStorage || '{}')
   }
 
   const loadCps = async () => {
-    const data = await api.cps(filters)
-    if (!process.server) {
-      loadLocalStoreData()
+    loading.value = true
+    try {
+      const data = await api.cps(filters)
+      if (!process.server) {
+        loadLocalStoreData()
+      }
+      cps.value = data.map((cp) => ({
+        ...cp,
+        categoryLabel: Category[cp.category],
+        checked: checkedCps[cp._id],
+      }))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      loading.value = false
     }
-    cps.value = data.map(cp => ({ 
-      ...cp,
-      categoryLabel: Category[cp.category],
-      checked: checkedCps[cp._id]
-    }))
   }
 
   const submit = async (data) => {
     try {
       await api.cpsSubmit(data)
       Message({
-          message: 'Career page submited correctly',
-          type: 'success'
+        message: 'Career page submited correctly',
+        type: 'success',
       })
     } catch (err) {
       Message({
         message: 'An error ocurred',
-        type: 'error'
-    })
+        type: 'error',
+      })
     }
   }
 
@@ -83,6 +98,7 @@ const createCareersInstance = () => {
   }
 
   return {
+    loading,
     submit,
     loadCps,
     cps,
@@ -92,7 +108,7 @@ const createCareersInstance = () => {
     toggleCheck,
     filteredCps,
     loadLocalStoreData,
-    showSubmitForm
+    showSubmitForm,
   }
 }
 

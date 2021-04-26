@@ -64,7 +64,12 @@ export default defineComponent({
     :fullscreen="!isLargeScreen"
     :width="isLargeScreen ? '45%' : 'full'"
   >
-    <div class="cp-card stateless border border-border rounded-xl p-4">
+   <el-alert
+    title="If you are missing a career page, feel free to submit it and it will be reviewed as soon as possible."
+    type="info"
+    show-icon
+    />
+    <div class="cp-card stateless border border-border rounded-xl p-4 mt-4">
       <div class="flex items-center mb-2">
         <div
           class="rounded overflow-hidden w-[40px] h-[40px] flex-shrink-0"

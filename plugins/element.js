@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {
+  Alert,
   Button,
   Select,
   Option,
@@ -10,10 +11,12 @@ import {
   Form,
   FormItem,
   Dialog,
-  Message
+  Message,
+  Loading
 } from 'element-ui'
 import '../assets/styles/element-variables.scss'
 
+Vue.use(Alert)
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Option)
@@ -24,5 +27,7 @@ Vue.use(Tag)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Dialog)
+
+Vue.use(Loading.directive);
 
 Vue.prototype.$message = Message;
