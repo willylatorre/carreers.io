@@ -2,7 +2,6 @@
 export default {
   methods: {
     submitCarreerPage() {
-      console.log('submit')
     }
   }
 }

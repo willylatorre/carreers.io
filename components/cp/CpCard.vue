@@ -14,6 +14,7 @@ export default defineComponent({
       backgroundImage: `url(${props.cp.logo})`,
       backgroundSize: 'contain',
       backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
     }))
 
     return {
@@ -70,23 +71,4 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-.cp-card {
-  @apply bg-white;
-  @apply rounded;
-  @apply drop-shadow;
-  @apply border;
-  @apply border-border;
-  @apply min-w-card;
-  @apply p-4;
-  @apply relative;
-  @apply flex;
-  @apply flex-col;
-  @apply justify-between;
-
-  transition: transform .2s ease-in;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
 </style>

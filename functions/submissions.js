@@ -3,25 +3,18 @@ const url = process.env.MONGO_URL;
 
 
 exports.handler = async (event, context) => {
-  let { category } = event.queryStringParameters;
-
-  const headers = {}
-  if (process.env.NODE_ENV !== 'production') {
-    headers['Access-Control-Allow-Origin'] = '*'
-  }
-
   try {
     const client = new MongoClient(url, { useUnifiedTopology: true });
     await client.connect();
     const db = client.db('cps');
-    const pages = db.collection('pages');
+    const submissions = db.collection('submissions');
 
-    const cps = await pages.find().toArray();
+    const subs = await submissions.find().toArray();
+
     await client.close();
     return {
       statusCode: 200,
-      body: JSON.stringify(cps),
-      headers
+      body: JSON.stringify(subs)
     };
 
 

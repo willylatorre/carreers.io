@@ -1,2 +1,23 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100,500&display=swap');
+
+
+.cp-card {
+  @apply bg-white;
+  @apply rounded;
+  @apply drop-shadow;
+  @apply border;
+  @apply border-border;
+  @apply min-w-card;
+  @apply p-4;
+  @apply relative;
+  @apply flex;
+  @apply flex-col;
+  @apply justify-between;
+
+  transition: transform .2s ease-in;
+
+  &:hover:not(.stateless) {
+    transform: scale(1.05);
+  }
+}

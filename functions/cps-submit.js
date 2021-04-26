@@ -3,28 +3,22 @@ const url = process.env.MONGO_URL;
 
 
 exports.handler = async (event, context) => {
-  let { category } = event.queryStringParameters;
-
-  const headers = {}
-  if (process.env.NODE_ENV !== 'production') {
-    headers['Access-Control-Allow-Origin'] = '*'
-  }
+  let body = event.body;
+  let submission = JSON.parse(body);
 
   try {
     const client = new MongoClient(url, { useUnifiedTopology: true });
     await client.connect();
     const db = client.db('cps');
-    const pages = db.collection('pages');
+    const submissions = db.collection('submissions');
 
-    const cps = await pages.find().toArray();
+    const insertedSubmission = await submissions.insertOne(submission)
+
     await client.close();
     return {
       statusCode: 200,
-      body: JSON.stringify(cps),
-      headers
+      body: JSON.stringify(insertedSubmission)
     };
-
-
   } catch (err) {
     return { statusCode: 500, body: err.toString() }
   }

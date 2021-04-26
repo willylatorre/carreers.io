@@ -1,16 +1,18 @@
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useCareers, Category } from '@/plugins/careers'
+import CpSubmitModal from '../cp/CpSubmitModal.vue'
 
 export default defineComponent({
+  components: { CpSubmitModal },
   setup() {
     const url = ref('')
+    const showSubmitForm = ref(false)
     const { filters } = useCareers()
-
-    console.log({ Category });
 
     return {
       url,
+      showSubmitForm,
       filters,
       Category
     }
@@ -27,7 +29,7 @@ export default defineComponent({
         Are you missing an specific career page? Feel free to submit it!
       </p>
       <el-input v-model="url" class="my-2" />
-      <el-button size="small" type="primary"> Submit career page </el-button>
+      <el-button size="small" type="primary" @click="showSubmitForm = true"> Submit career page </el-button>
     </div>
     <h3 class="font-medium mb-3 mt-4">Personalize view</h3>
     <el-checkbox v-model="filters.checked">Hide visited pages </el-checkbox>
@@ -41,5 +43,6 @@ export default defineComponent({
         {{ label }}
       </el-checkbox>
     </el-checkbox-group>
+    <cp-submit-modal :url="url" v-if="showSubmitForm" @close="showSubmitForm = false" />
   </div>
 </template>

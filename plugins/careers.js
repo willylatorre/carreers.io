@@ -1,6 +1,7 @@
 import { computed, inject, provide, reactive, ref, watch } from '@vue/composition-api'
 import api from '@/api'
 import Vue from 'vue'
+import { Message } from 'element-ui'
 
 const CAREERS_KEY = Symbol.for('careers')
 
@@ -55,6 +56,21 @@ const createCareersInstance = () => {
     }))
   }
 
+  const submit = async (data) => {
+    try {
+      await api.cpsSubmit(data)
+      Message({
+          message: 'Career page submited correctly',
+          type: 'success'
+      })
+    } catch (err) {
+      Message({
+        message: 'An error ocurred',
+        type: 'error'
+    })
+    }
+  }
+
   const filterCategory = (category) => {
     filters.categories.push(category)
   }
@@ -66,6 +82,7 @@ const createCareersInstance = () => {
   }
 
   return {
+    submit,
     loadCps,
     cps,
     filters,

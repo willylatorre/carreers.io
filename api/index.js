@@ -10,7 +10,21 @@ class ApiClient {
 
   async cps(filters) {
     const { data } = await this.api.get('/cps', { params: filters })
-    // const data = mockCps
+    return data
+  }
+
+  async cpsSubmit(cp) {
+    const { data } = await this.api.post('/cps-submit', cp)
+    return data
+  }
+
+  async submissions() {
+    const { data } = await this.api.get('/submissions')
+    return data
+  }
+
+  async processSubmission(id, action) {
+    const { data } = await this.api.post('/submissions-process', {id, action})
     return data
   }
 }
