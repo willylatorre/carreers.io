@@ -37,11 +37,16 @@ export default {
   buildModules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/composition-api/module',
+    '@nuxtjs/google-analytics'
   ],
 
   modules: [
     'portal-vue/nuxt'
   ],
+
+  googleAnalytics: {
+    id: 'G-0T6M4LBF43'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
