@@ -1,5 +1,6 @@
 <script>
 import { computed, defineComponent } from '@nuxtjs/composition-api'
+const tagTypes = ['', 'info', 'success', 'warning']
 
 export default defineComponent({
   props: {
@@ -17,6 +18,7 @@ export default defineComponent({
 
     return {
       styleBg,
+      tagTypes
     }
   },
 })
@@ -34,9 +36,15 @@ export default defineComponent({
         {{ cp.description }}
       </p>
       <div class="flex my-4 flex-wrap">
-        <el-tag size="small" class="m-1" v-for="tag in cp.tags" :key="tag">{{
+        <!-- <el-tag size="small" class="m-1" v-for="tag in cp.tags" :key="tag">{{
           tag
-        }}</el-tag>
+        }}</el-tag> -->
+        <el-tag size="small"
+        :type="tagTypes[cp.category.length % 4]"
+        @click="$emit('filter')"
+        >
+        {{ cp.categoryLabel}}
+        </el-tag>
       </div>
     </div>
 

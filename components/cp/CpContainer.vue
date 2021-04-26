@@ -6,7 +6,7 @@ import { useCareers } from '@/plugins/careers'
 export default defineComponent({
   components: { CpCard },
   setup() {
-    const { filteredCps, toggleCheck } = useCareers()
+    const { filteredCps, filterCategory, toggleCheck } = useCareers()
 
     return {
       toggleCheck,
@@ -31,6 +31,7 @@ export default defineComponent({
         v-for="cp in filteredCps"
         :key="cp._id"
         @check="toggleCheck(cp)"
+        @filter="filterCategory(cp.category)"
       />
     </div>
   </div>
