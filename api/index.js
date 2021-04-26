@@ -1,18 +1,16 @@
 import axios from "axios";
-import mockCps from './cps.mock.json'
 
 class ApiClient {
-
-  contructor() {
-    this.api = axios({
-      baseURL: '/'
+  constructor() {
+    this.api = axios.create({
+      baseURL: `${process.env.apiBase}/.netlify/functions`
     })
   }
 
 
   async cps(filters) {
-    // const { data } = await this.api.get('/cps', { params: filters })
-    const data = mockCps
+    const { data } = await this.api.get('/cps', { params: filters })
+    // const data = mockCps
     return data
   }
 }

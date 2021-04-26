@@ -41,9 +41,12 @@ export default defineComponent({
 .home {
  @apply p-4;
  display: grid;
- grid-template-columns: 240px 1fr;
+ grid-template-columns: 1fr;
  gap: 24px;
 
+ @media (min-width: 727px) {
+   grid-template-columns: 240px 1fr;
+ }
 }
 
 
