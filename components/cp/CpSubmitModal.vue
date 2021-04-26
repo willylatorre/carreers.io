@@ -27,11 +27,20 @@ export default defineComponent({
       description: '',
     })
 
+    const clearForm = () => {
+      form.name = ''
+      form.category = ''
+      form.url = ''
+      form.logo = ''
+      form.description = ''
+    }
+
     const onSubmit = async () => {
       loading.value = true
       await submit(form)
-      loading.false
+      loading.value = false
       showSubmitForm.value = false
+      clearForm()
     }
 
     const styleBg = computed(() => ({
