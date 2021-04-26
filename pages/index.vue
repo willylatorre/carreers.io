@@ -6,21 +6,25 @@ import Searchbar from '../components/common/searchbar.vue'
 import Sidebar from '../components/common/sidebar.vue'
 import CpContainer from '../components/cp/CpContainer.vue'
 import { useCareers } from '@/plugins/careers'
+import CpSubmitModal from '../components/cp/CpSubmitModal.vue'
 
 export default defineComponent({
   components: {
     Searchbar,
     Sidebar,
     CpContainer,
+    CpSubmitModal,
   },
   setup() {
     const { loadCps } = useCareers()
+    
 
     onMounted(() => {
       loadCps()
     })
 
-    return {}
+    return {
+    }
   },
 })
 </script>
@@ -31,6 +35,8 @@ export default defineComponent({
     <!-- <searchbar /> -->
     <sidebar />
     <cp-container />
+
+    <cp-submit-modal />
   </div>
 </template>
 

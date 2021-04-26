@@ -20,6 +20,7 @@ export const Category = Object.freeze({
 
 const createCareersInstance = () => {
   const cps = ref([])
+  const showSubmitForm = ref(false)
   let checkedCps = {}
   const filters = reactive({
     checked: false,
@@ -90,7 +91,8 @@ const createCareersInstance = () => {
     checkedCps,
     toggleCheck,
     filteredCps,
-    loadLocalStoreData
+    loadLocalStoreData,
+    showSubmitForm
   }
 }
 

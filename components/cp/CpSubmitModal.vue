@@ -1,5 +1,10 @@
 <script>
-import { computed, defineComponent, reactive, ref } from '@nuxtjs/composition-api'
+import {
+  computed,
+  defineComponent,
+  reactive,
+  ref,
+} from '@nuxtjs/composition-api'
 import { useMediaQuery } from '@vueuse/core'
 import { useCareers, Category } from '@/plugins/careers'
 
@@ -12,7 +17,7 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
-    const { submit } = useCareers()
+    const { submit, showSubmitForm } = useCareers()
     const loading = ref(false)
     const form = reactive({
       name: '',
@@ -26,7 +31,7 @@ export default defineComponent({
       loading.value = true
       await submit(form)
       loading.false
-      ctx.emit('close')
+      showSubmitForm.value = false
     }
 
     const styleBg = computed(() => ({
@@ -35,14 +40,16 @@ export default defineComponent({
       })`,
       backgroundSize: 'contain',
       backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
+      backgroundRepeat: 'no-repeat',
     }))
 
     return {
       form,
+      loading,
       styleBg,
       onSubmit,
       isLargeScreen,
+      showSubmitForm,
       Category,
     }
   },
@@ -53,7 +60,7 @@ export default defineComponent({
   <el-dialog
     title="Submit a career page"
     lock-scroll
-    :visible="true"
+    :visible.sync="showSubmitForm"
     :fullscreen="!isLargeScreen"
     :width="isLargeScreen ? '45%' : 'full'"
   >
@@ -63,28 +70,37 @@ export default defineComponent({
           class="rounded overflow-hidden w-[40px] h-[40px] flex-shrink-0"
           :style="styleBg"
         ></div>
-        <el-input placeholder="Add a logo url" class="ml-4" v-model="form.logo"></el-input>
+        <el-input
+          placeholder="Add a logo url"
+          class="ml-4"
+          v-model="form.logo"
+        ></el-input>
       </div>
 
-      <el-input class="font-medium mb-2" placeholder="Add a name" v-model="form.name"></el-input>
-      <el-input class="text-sm" v-model="form.description" placeholder="Add a description">
+      <el-input
+        class="font-medium mb-2"
+        placeholder="Add a name"
+        v-model="form.name"
+      ></el-input>
+      <el-input
+        class="text-sm"
+        v-model="form.description"
+        placeholder="Add a description"
+      >
       </el-input>
       <div class="flex my-2 items-center justify-between">
+        <el-tag size="small" type="info" class="mr-2" v-if="form.category">
+          {{ Category[form.category] }}
+        </el-tag>
 
-          <el-tag size="small" type="info" class="mr-2" v-if="form.category">
-            {{ Category[form.category] }}
-          </el-tag>
-
-
-          <el-select v-model="form.category" placeholder="Pick a category">
-            <el-option
-              :label="label"
-              :value="category"
-              v-for="(label, category) in Category"
-              :key="category"
-            />
-          </el-select>
-
+        <el-select v-model="form.category" placeholder="Pick a category">
+          <el-option
+            :label="label"
+            :value="category"
+            v-for="(label, category) in Category"
+            :key="category"
+          />
+        </el-select>
       </div>
 
       <el-input
@@ -98,8 +114,10 @@ export default defineComponent({
     </div>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="$emit('close')">Cancel</el-button>
-      <el-button type="primary" @click="onSubmit">Confirm</el-button>
+      <el-button @click="showSubmitForm = false">Cancel</el-button>
+      <el-button type="primary" @click="onSubmit" :loading="loading"
+        >Confirm</el-button
+      >
     </span>
   </el-dialog>
 </template>

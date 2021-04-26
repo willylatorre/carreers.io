@@ -3,15 +3,11 @@ import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useCareers, Category } from '@/plugins/careers'
 import { useMediaQuery } from '@vueuse/core'
 
-import CpSubmitModal from '../cp/CpSubmitModal.vue'
-
 export default defineComponent({
-  components: { CpSubmitModal },
   setup() {
     const url = ref('')
     const showFilters = ref(false)
-    const showSubmitForm = ref(false)
-    const { filters } = useCareers()
+    const { filters, showSubmitForm } = useCareers()
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
 
     return {
@@ -81,10 +77,5 @@ export default defineComponent({
       </span>
     </el-dialog>
 
-    <cp-submit-modal
-      :url="url"
-      v-if="showSubmitForm"
-      @close="showSubmitForm = false"
-    />
   </div>
 </template>
