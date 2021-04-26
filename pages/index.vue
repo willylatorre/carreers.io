@@ -8,20 +8,19 @@ import CpContainer from '../components/cp/CpContainer.vue'
 import { useCareers } from '@/plugins/careers'
 
 export default defineComponent({
-   components: {
+  components: {
     Searchbar,
     Sidebar,
-    CpContainer
+    CpContainer,
   },
   setup() {
     const { loadCps } = useCareers()
-  
+
     onMounted(() => {
       loadCps()
     })
-    
-    return  {
-    }
+
+    return {}
   },
 })
 </script>
@@ -37,15 +36,13 @@ export default defineComponent({
 
 <style>
 .home {
- @apply p-4;
- display: grid;
- grid-template-columns: 1fr;
- gap: 24px;
-
- @media (min-width: 727px) {
-   grid-template-columns: 240px 1fr;
- }
+  @apply p-4;
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  @media (min-width: 727px) {
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+  }
 }
-
-
 </style>
