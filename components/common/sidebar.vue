@@ -8,7 +8,7 @@ export default defineComponent({
     const url = ref('')
     const showFilters = ref(false)
     const { filters, showSubmitForm } = useCareers()
-        const isSmallScreen = useMediaQuery('(max-width: 727px)')
+    const isSmallScreen = useMediaQuery('(max-width: 727px)')
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
 
     return {
@@ -49,23 +49,25 @@ export default defineComponent({
       Filters
     </el-button>
 
-    <portal to="filters-dialog" :disabled="isLargeScreen">
-      <h3 class="font-medium mb-3 mt-4">Personalize view</h3>
-      <el-checkbox v-model="filters.checked">Hide visited pages </el-checkbox>
-      <h3 class="font-medium mb-3 mt-4">Categories</h3>
-      <el-checkbox-group
-        v-model="filters.categories"
-        class="flex flex-col items-start"
-      >
-        <el-checkbox
-          v-for="(label, category) in Category"
-          :key="category"
-          :label="category"
+    <no-ssr>
+      <portal to="filters-dialog" :disabled="isLargeScreen">
+        <h3 class="font-medium mb-3 mt-4">Personalize view</h3>
+        <el-checkbox v-model="filters.checked">Hide visited pages </el-checkbox>
+        <h3 class="font-medium mb-3 mt-4">Categories</h3>
+        <el-checkbox-group
+          v-model="filters.categories"
+          class="flex flex-col items-start"
         >
-          {{ label }}
-        </el-checkbox>
-      </el-checkbox-group>
-    </portal>
+          <el-checkbox
+            v-for="(label, category) in Category"
+            :key="category"
+            :label="category"
+          >
+            {{ label }}
+          </el-checkbox>
+        </el-checkbox-group>
+      </portal>
+    </no-ssr>
 
     <el-dialog
       :visible.sync="showFilters"
@@ -78,6 +80,5 @@ export default defineComponent({
         <el-button type="primary" @click="showFilters = false">Apply</el-button>
       </span>
     </el-dialog>
-
   </div>
 </template>
