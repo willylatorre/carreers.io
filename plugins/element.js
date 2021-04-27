@@ -12,7 +12,8 @@ import {
   FormItem,
   Dialog,
   Message,
-  Loading
+  Loading,
+  Popover
 } from 'element-ui'
 import '../assets/styles/element-variables.scss'
 
@@ -27,6 +28,7 @@ Vue.use(Tag)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Dialog)
+Vue.use(Popover)
 
 Vue.use(Loading.directive);
 

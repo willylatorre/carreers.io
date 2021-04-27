@@ -7,13 +7,14 @@ import { useMediaQuery } from '@vueuse/core'
 export default defineComponent({
   components: { CpCard },
   setup() {
-    const { filteredCps, toggleCheck, loading } = useCareers()
+    const { filteredCps, filterCategory, toggleCheck, loading } = useCareers()
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
 
     return {
       loading,
       toggleCheck,
       filteredCps,
+      filterCategory,
       isLargeScreen,
     }
   },

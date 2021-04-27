@@ -14,12 +14,12 @@ export default defineComponent({
       backgroundImage: `url(${props.cp.logo})`,
       backgroundSize: 'contain',
       backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
+      backgroundRepeat: 'no-repeat',
     }))
 
     return {
       styleBg,
-      tagTypes
+      tagTypes,
     }
   },
 })
@@ -36,29 +36,42 @@ export default defineComponent({
       <p class="text-sm">
         {{ cp.description }}
       </p>
-      <div class="flex my-4 flex-wrap">
-        <!-- <el-tag size="small" class="m-1" v-for="tag in cp.tags" :key="tag">{{
-          tag
-        }}</el-tag> -->
-        <el-tag size="small"
-        :type="tagTypes[cp.category.length % 4]"
-        @click="$emit('filter')"
-        >
-        {{ cp.categoryLabel}}
-        </el-tag>
-      </div>
     </div>
 
-    <a
-      :href="cp.url"
-      target="_new"
-      rel="norel noopener"
-      class="el-button el-button--primary w-full flex items-center"
-      @click="$emit('check')"
-    >
-      <i class="el-icon-link mr-1"></i>
-      {{ cp.checked ? 'Visited' : 'Visit' }}
-    </a>
+    <div>
+      <div class="flex my-4 justify-between">
+        <el-tag
+          size="small"
+          class="cursor-pointer"
+          :type="tagTypes[cp.category.length % 4]"
+          @click="$emit('filter')"
+        >
+          {{ cp.categoryLabel }}
+        </el-tag>
+        <el-popover trigger="hover" v-if="cp.locations">
+          <h4 class="font-medium text-sm">Locations</h4>
+          <ul class="text-xs">
+            <li v-for="location in cp.locations" :key="location.city">
+              {{ location.city }}, {{ location.country }}
+            </li>
+          </ul>
+          <div class="inline text-gray-600" slot="reference">
+            <i class="el-icon-location"></i> {{ cp.locations.length }}
+          </div>
+        </el-popover>
+      </div>
+
+      <a
+        :href="cp.url"
+        target="_new"
+        rel="norel noopener"
+        class="el-button el-button--primary w-full flex items-center"
+        @click="$emit('check')"
+      >
+        <i class="el-icon-link mr-1"></i>
+        {{ cp.checked ? 'Visited' : 'Visit' }}
+      </a>
+    </div>
     <el-button
       icon="el-icon-check"
       class="absolute top-4 right-4"
