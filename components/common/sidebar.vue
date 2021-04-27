@@ -49,7 +49,7 @@ export default defineComponent({
       Filters
     </el-button>
 
-    <no-ssr>
+    <client-only>
       <portal to="filters-dialog" :disabled="isLargeScreen">
         <h3 class="font-medium mb-3 mt-4">Personalize view</h3>
         <el-checkbox v-model="filters.checked">Hide visited pages </el-checkbox>
@@ -67,7 +67,7 @@ export default defineComponent({
           </el-checkbox>
         </el-checkbox-group>
       </portal>
-    </no-ssr>
+    </client-only>
 
     <el-dialog
       :visible.sync="showFilters"
