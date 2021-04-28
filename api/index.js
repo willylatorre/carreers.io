@@ -18,6 +18,11 @@ class ApiClient {
     return data
   }
 
+  async cpsUpdate(cp) {
+    const { data } = await this.api.put('/cps-update', cp)
+    return data
+  }
+
   async submissions() {
     const { data } = await this.api.get('/submissions')
     return data

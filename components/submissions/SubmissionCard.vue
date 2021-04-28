@@ -7,6 +7,10 @@ export default defineComponent({
       type: Object,
       required: true,
     },
+    loading: {
+      type: String,
+      default: null
+    }
   },
   setup(props) {
     const styleBg = computed(() => ({
@@ -66,12 +70,14 @@ export default defineComponent({
           icon="el-icon-close"
           class="flex-1"
           type="error"
+          :loading="loading === 'decline'"
           @click="$emit('decline')"
         />
         <el-button
           class="flex-1"
           icon="el-icon-check"
           type="primary"
+          :loading="loading === 'approve'"
           @click="$emit('approve')"
         />
       </div>

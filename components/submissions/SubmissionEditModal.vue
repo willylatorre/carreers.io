@@ -44,7 +44,13 @@ export default defineComponent({
       form.locations = sub?.locations || []
     }
 
-    watch(() => props.submission, parseSubmission, { immediate: true })
+    watch(
+      () => props.submission,
+      () => {
+        nextTick(parseSubmission)
+      },
+      { immediate: true }
+    )
 
     const clearForm = () => {
       form._id = ''

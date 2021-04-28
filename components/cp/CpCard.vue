@@ -73,11 +73,20 @@ export default defineComponent({
       </a>
     </div>
     <el-button
+      icon="el-icon-edit"
+      class="absolute top-4 right-4"
+      size="small"
+      circle
+      @click="$emit('edit')"
+      v-if="$route.name === 'edit'"
+    />
+    <el-button
       icon="el-icon-check"
       class="absolute top-4 right-4"
       :type="cp.checked ? 'warning' : ''"
       size="small"
       circle
+      v-else
       @click="$emit('check')"
     />
   </div>

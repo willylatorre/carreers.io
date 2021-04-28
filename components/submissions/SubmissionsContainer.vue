@@ -7,7 +7,7 @@ import SubmissionEditModal from './SubmissionEditModal.vue'
 export default defineComponent({
   components: { SubmissionCard, SubmissionEditModal },
   setup() {
-    const { processSubmission, submissions, showSubmissionEditForm } = useSubmissions()
+    const { processSubmission, submissions, showSubmissionEditForm, loading } = useSubmissions()
     const submissionToEdit = ref(null)
 
     const editSubmission = (sub) => {
@@ -16,6 +16,7 @@ export default defineComponent({
     }
 
     return {
+      loading,
       submissions,
       editSubmission,
       submissionToEdit,
@@ -37,6 +38,7 @@ export default defineComponent({
     <div class="grid grid-cols-fill gap-4">
       <submission-card
         :submission="submission"
+        :loading="loading"
         v-for="submission in submissions"
         :key="submission._id"
         @edit="editSubmission(submission)"

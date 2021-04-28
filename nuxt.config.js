@@ -51,6 +51,16 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'edit',
+        path: '/e',
+        component: resolve(__dirname, 'pages/index.vue')
+      })
+    }
+  },
+
   generate: {
     // Composition API bug https://composition-api.nuxtjs.org/getting-started/setup
     interval: 2000,

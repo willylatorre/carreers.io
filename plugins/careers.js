@@ -87,6 +87,26 @@ const createCareersInstance = () => {
     }
   }
 
+  const update = async (data) => {
+    try {
+      const newCp = await api.cpsUpdate(data)
+      const indexToReplace = cps.value.findIndex(
+        (cp) => cp._id === newCp._id
+      )
+      cps.value.splice(indexToReplace, 1, newCp)
+
+      Message({
+        message: 'Career page updated correctly',
+        type: 'success',
+      })
+    } catch (err) {
+      Message({
+        message: 'An error ocurred',
+        type: 'error',
+      })
+    }
+  }
+
   const filterCategory = (category) => {
     filters.categories.push(category)
   }
@@ -100,6 +120,7 @@ const createCareersInstance = () => {
   return {
     loading,
     submit,
+    update,
     loadCps,
     cps,
     filters,
