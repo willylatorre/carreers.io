@@ -1,15 +1,24 @@
 <script>
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import SubmissionCard from './SubmissionCard.vue'
 import { useSubmissions } from '@/plugins/submissions'
+import SubmissionEditModal from './SubmissionEditModal.vue'
 
 export default defineComponent({
-  components: { SubmissionCard },
+  components: { SubmissionCard, SubmissionEditModal },
   setup() {
-    const { processSubmission, submissions } = useSubmissions()
+    const { processSubmission, submissions, showSubmissionEditForm } = useSubmissions()
+    const submissionToEdit = ref(null)
+
+    const editSubmission = (sub) => {
+      submissionToEdit.value = sub
+      showSubmissionEditForm.value = true
+    }
 
     return {
       submissions,
+      editSubmission,
+      submissionToEdit,
       processSubmission
     }
   },
@@ -30,9 +39,11 @@ export default defineComponent({
         :submission="submission"
         v-for="submission in submissions"
         :key="submission._id"
+        @edit="editSubmission(submission)"
         @approve="processSubmission(submission, 'approve')"
         @decline="processSubmission(submission, 'decline')"
       />
     </div>
+    <submission-edit-modal :submission="submissionToEdit" @close="submissionToEdit = null" />
   </div>
 </template>

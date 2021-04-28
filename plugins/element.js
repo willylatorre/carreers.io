@@ -13,7 +13,8 @@ import {
   Dialog,
   Message,
   Loading,
-  Popover
+  Popover,
+  Popconfirm
 } from 'element-ui'
 import '../assets/styles/element-variables.scss'
 
@@ -29,6 +30,7 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Dialog)
 Vue.use(Popover)
+Vue.use(Popconfirm)
 
 Vue.use(Loading.directive);
 

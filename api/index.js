@@ -27,6 +27,11 @@ class ApiClient {
     const { data } = await this.api.post('/submissions-process', {id, action})
     return data
   }
+
+  async updateSubmission(submission) {
+    const { data } = await this.api.put('/submissions-update', submission)
+    return data
+  }
 }
 
 export default new ApiClient()
