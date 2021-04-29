@@ -91,10 +91,13 @@ const createCareersInstance = () => {
   const update = async (data) => {
     try {
       const newCp = await api.cpsUpdate(data)
-      const indexToReplace = cps.value.findIndex(
-        (cp) => cp._id === newCp._id
-      )
-      cps.value.splice(indexToReplace, 1, newCp)
+      const cp = {
+        ...newCp,
+        categoryLabel: Category[newCp.category],
+        checked: checkedCps[newCp._id],
+      }
+      const indexToReplace = cps.value.findIndex((cp) => cp._id === newCp._id)
+      cps.value.splice(indexToReplace, 1, cp)
 
       Message({
         message: 'Career page updated correctly',
@@ -131,7 +134,7 @@ const createCareersInstance = () => {
     filteredCps,
     loadLocalStoreData,
     showSubmitForm,
-    showEditForm
+    showEditForm,
   }
 }
 
