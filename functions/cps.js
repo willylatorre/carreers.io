@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     const db = client.db('cps');
     const pages = db.collection('pages');
 
-    const cps = await pages.find().toArray();
+    const cps = await pages.find().sort({ priority: 1}).toArray();
     await client.close();
     return {
       statusCode: 200,
