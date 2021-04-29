@@ -31,17 +31,19 @@ export default defineComponent({
       logo: '',
       description: '',
       locations: [],
+      priority: 100
     })
 
     const { showSubmissionEditForm, update } = useSubmissions()
-    const parseSubmission = (sub) => {
-      form._id = sub?._id
-      form.name = sub?.name || ''
-      form.category = sub?.category || ''
-      form.url = sub?.url || ''
-      form.logo = sub?.logo || ''
-      form.description = sub?.description || ''
-      form.locations = sub?.locations || []
+    const parseSubmission = () => {
+      form._id = props.submission?._id
+      form.name = props.submission?.name || ''
+      form.category = props.submission?.category || ''
+      form.url = props.submission?.url || ''
+      form.logo = props.submission?.logo || ''
+      form.description = props.submission?.description || ''
+      form.locations = props.submission?.locations || []
+      form.priority = props.submission?.priority || 100
     }
 
     watch(
@@ -166,6 +168,7 @@ export default defineComponent({
           key="addLocation"
         ></add-city-popover>
       </div>
+      
 
       <el-input
         v-model="form.url"
@@ -174,6 +177,14 @@ export default defineComponent({
         class="w-full flex items-center"
       >
         {{ form.url }}
+      </el-input>
+
+      <el-input
+        v-model.number="form.priority"
+        prefix-icon="el-icon-s-flag"
+        placeholder="Priority"
+        class="w-full mt-2"
+      >
       </el-input>
     </div>
 
