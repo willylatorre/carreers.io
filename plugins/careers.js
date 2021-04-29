@@ -29,6 +29,7 @@ const createCareersInstance = () => {
   const cps = ref([])
   const loading = ref(false)
   const showSubmitForm = ref(false)
+  const showEditForm = ref(false)
   let checkedCps = {}
   const filters = reactive({
     checked: false,
@@ -130,6 +131,7 @@ const createCareersInstance = () => {
     filteredCps,
     loadLocalStoreData,
     showSubmitForm,
+    showEditForm
   }
 }
 

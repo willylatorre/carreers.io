@@ -25,15 +25,17 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
-    const { submit, update, showSubmitForm } = useCareers()
+    const { submit, update } = useCareers()
     const loading = ref(false)
     const form = reactive({
+      _id: '',
       name: '',
       category: '',
-      url: props.url || '',
+      url: '',
       logo: '',
       description: '',
       locations: [],
+      priority: 100,
     })
 
     const parseEdit = () => {
@@ -44,13 +46,17 @@ export default defineComponent({
       form.logo = props.edit?.logo || ''
       form.description = props.edit?.description || ''
       form.locations = props.edit?.locations || []
+      form.priority = props.edit?.priority || 100
     }
 
+    const isEditMode = computed(() => !!props.edit)
+
     watch(
-      () => props.edit?._id,
+      () => props.edit,
       () => {
         nextTick(parseEdit)
-      }
+      },
+      { immediate: true }
     )
 
     const clearForm = () => {
@@ -61,6 +67,12 @@ export default defineComponent({
       form.logo = ''
       form.description = ''
       form.locations = []
+      form.priority = 100
+    }
+
+    const onClose = () => {
+      ctx.emit('close')
+      clearForm()
     }
 
     const onSubmit = async () => {
@@ -72,8 +84,7 @@ export default defineComponent({
       }
 
       loading.value = false
-      showSubmitForm.value = false
-      clearForm()
+      onClose()
     }
 
     const styleBg = computed(() => ({
@@ -97,10 +108,11 @@ export default defineComponent({
     return {
       form,
       loading,
+      isEditMode,
+      onClose,
       styleBg,
       onSubmit,
       isLargeScreen,
-      showSubmitForm,
       Category,
       addLocation,
       editLocation,
@@ -113,8 +125,9 @@ export default defineComponent({
   <el-dialog
     title="Submit a career page"
     lock-scroll
-    :visible.sync="showSubmitForm"
+    visible
     :fullscreen="!isLargeScreen"
+    :before-close="onClose"
     :width="isLargeScreen ? '45%' : 'full'"
   >
     <el-alert
@@ -179,14 +192,22 @@ export default defineComponent({
         v-model="form.url"
         prefix-icon="el-icon-link"
         placeholder="Add the careers page url"
-        class="w-full flex items-center"
+        class="w-full"
       >
-        {{ form.url }}
+      </el-input>
+
+      <el-input
+        v-if="isEditMode"
+        v-model.number="form.priority"
+        prefix-icon="el-icon-s-flag"
+        placeholder="Priority"
+        class="w-full mt-2"
+      >
       </el-input>
     </div>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="showSubmitForm = false">Cancel</el-button>
+      <el-button @click="onClose">Cancel</el-button>
       <el-button type="primary" @click="onSubmit" :loading="loading">{{
         edit ? 'Update' : 'Confirm'
       }}</el-button>

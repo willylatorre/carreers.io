@@ -16,13 +16,15 @@ export default defineComponent({
     CpSubmitModal,
   },
   setup() {
-    const { loadCps } = useCareers()
+    const { loadCps, showSubmitForm } = useCareers()
 
     onMounted(() => {
       loadCps()
     })
 
-    return {}
+    return {
+      showSubmitForm
+    }
   },
 })
 </script>
@@ -34,7 +36,7 @@ export default defineComponent({
     <sidebar />
     <cp-container />
 
-    <cp-submit-modal />
+    <cp-submit-modal v-if="showSubmitForm" @close="showSubmitForm = false" />
   </div>
 </template>
 

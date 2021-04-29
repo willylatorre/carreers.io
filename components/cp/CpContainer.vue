@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, nextTick, ref } from '@nuxtjs/composition-api'
 import CpCard from './CpCard.vue'
 import { useCareers } from '@/plugins/careers'
 import { useMediaQuery } from '@vueuse/core'
@@ -8,24 +8,30 @@ import CpSubmitModal from './CpSubmitModal.vue'
 export default defineComponent({
   components: { CpCard, CpSubmitModal },
   setup() {
-    const { filteredCps, filterCategory, toggleCheck, loading, showSubmitForm } = useCareers()
+    const {
+      filteredCps,
+      filterCategory,
+      toggleCheck,
+      loading,
+      showEditForm,
+    } = useCareers()
     const isLargeScreen = useMediaQuery('(min-width: 727px)')
     const editCp = ref(null)
 
     const edit = (cp) => {
       editCp.value = cp
-      showSubmitForm.value = true
+      showEditForm.value = true
     }
 
     return {
       edit,
       editCp,
+      showEditForm,
       loading,
       toggleCheck,
       filteredCps,
       filterCategory,
       isLargeScreen,
-      showSubmitForm,
     }
   },
 })
@@ -61,6 +67,8 @@ export default defineComponent({
     </div>
     <cp-submit-modal
       :edit="editCp"
-      />
+      v-if="showEditForm"
+      @close="showEditForm = false"
+    />
   </div>
 </template>
